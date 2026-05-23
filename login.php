@@ -1,0 +1,204 @@
+<?php
+session_start();
+include 'config.php'; // Make sure this file contains your database connection details
+
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    // Get user input
+    $username = $_POST['username'] ?? '';
+    $password = $_POST['password'] ?? '';
+
+    // Check if the fields are not empty
+    if (!$username || !$password) {
+        echo json_encode(['status' => 'error', 'message' => 'Missing fields']);
+        exit;
+    }
+
+    // Prepare query to check if the user exists in the database
+    $stmt = $conn->prepare("SELECT * FROM users WHERE username = ?");
+    $stmt->bind_param("s", $username);
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    // Check if user is found
+    if ($result->num_rows > 0) {
+        $user = $result->fetch_assoc();
+
+        // Use password_verify to check if the entered password matches the hashed password
+        if (password_verify($password, $user['password'])) {
+            // Store user session data
+            $_SESSION['user_id'] = $user['id'];
+            $_SESSION['username'] = $user['username'];
+
+            // Redirect to the homepage/dashboard after successful login
+            header('Location: index.php');
+            exit;
+        } else {
+            // If password doesn't match
+            echo json_encode(['status' => 'error', 'message' => 'Invalid password']);
+        }
+    } else {
+        // If username is not found
+        echo json_encode(['status' => 'error', 'message' => 'User not found']);
+    }
+
+    $stmt->close();
+    $conn->close();
+}
+?>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Login - Sri Kalyani Mobiles</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: url('images/login.gif') no-repeat center center fixed;
+      background-size: cover;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    /* Logo on the top-left */
+    .logo-top-left {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      text-align: center;
+      z-index: 2;
+    }
+
+    .logo-top-left img {
+      width: 60px;
+      height: 60px;
+      object-fit: cover;
+      border-radius: 50%;
+    }
+
+    .logo-top-left .brand-name {
+      color: white;
+      font-weight: bold;
+      margin-top: 5px;
+      font-size: 16px;
+    }
+
+    /* Back to Home on top-right */
+    .back-home {
+      position: absolute;
+      top: 25px;
+      right: 25px;
+      background: rgba(255, 255, 255, 0.1);
+      color: white;
+      padding: 8px 16px;
+      border-radius: 25px;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: bold;
+      transition: background 0.3s ease, transform 0.3s ease;
+    }
+
+    .back-home:hover {
+      background: rgba(255, 255, 255, 0.3);
+      transform: scale(1.05);
+    }
+
+    .login-container {
+      position: relative;
+      background: rgba(255, 255, 255, 0.07);
+      backdrop-filter: blur(15px);
+      padding: 60px 30px 40px;
+      border-radius: 16px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+      text-align: center;
+      width: 320px;
+      color: white;
+    }
+
+    .panda-img {
+      position: absolute;
+      top: -50px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100px;
+      animation: jump 2s infinite ease-in-out;
+    }
+
+    @keyframes jump {
+      0%, 100% {
+        transform: translateX(-50%) translateY(0);
+      }
+      50% {
+        transform: translateX(-50%) translateY(-15px);
+      }
+    }
+
+    .login-container h1 {
+      color: #4db6e7;
+      margin-bottom: 20px;
+      margin-top: 10px;
+    }
+
+    input[type="text"], input[type="password"] {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+      border-radius: 8px;
+      border: none;
+      background: rgba(255, 255, 255, 0.15);
+      color: white;
+      outline: none;
+    }
+
+    input::placeholder {
+      color: rgba(255, 255, 255, 0.8);
+    }
+
+    button {
+      width: 100%;
+      padding: 10px;
+      margin-top: 20px;
+      border: none;
+      border-radius: 8px;
+      background: #9a0c37;
+      color: #1e1e2f;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    button:hover {
+      background: #0eb0bc;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Logo on the left -->
+  <div class="logo-top-left">
+    <img src="images/logo.png" alt="SKM Logo" />
+    <div class="brand-name">SKM</div>
+  </div>
+
+  <!-- Back to Home on the right -->
+  <a href="index.html" class="back-home">← Back to Home</a>
+
+  <!-- Login Form -->
+  <div class="login-container">
+    <img src="images/panda.png" alt="Panda" class="panda-img" />
+    <h1>Login</h1>
+    <form method="POST" action="login.php">
+      <input type="text" name="username" placeholder="Username" required />
+      <input type="password" name="password" placeholder="Password" required />
+      <button type="submit">Submit</button>
+    </form>
+  </div>
+
+</body>
+</html>

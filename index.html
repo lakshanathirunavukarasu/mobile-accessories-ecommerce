@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Mobile Accessories</title>
+  <link rel="stylesheet" href="css/styles.css">
+  <style>
+    body {
+      background: url("images/color.gif") no-repeat center center fixed;
+      background-size: cover;
+      margin: 0;
+      font-family: Arial, sans-serif;
+      padding-top: 70px; /* Add padding to the top to account for the fixed header */
+    }
+
+    header {
+      background: transparent; /* Fully transparent header */
+      padding: 15px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: fixed; /* Fix the header at the top */
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000; /* Ensure the header is above other content */
+    }
+
+    .logo-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .logo-container img {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+    }
+
+    .shop-name {
+      color: #ffffff;
+      font-size: 20px;
+      font-weight: bold;
+      margin-top: 10px;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    }
+
+    .nav-container {
+      flex-grow: 1;
+      display: flex;
+      justify-content: center;
+    }
+
+    nav {
+      display: flex;
+      gap: 20px;
+    }
+
+    nav a {
+      text-decoration: none;
+      position: relative;
+    }
+
+    nav a button {
+      background: none;
+      border: none;
+      color: #ffffff;
+      font-size: 16px;
+      font-weight: bold;
+      padding: 10px 20px;
+      border-radius: 25px;
+      transition: background 0.3s, color 0.3s;
+    }
+
+    nav a button:hover {
+      background: rgba(255, 255, 255, 0.2);
+      color: #00c6fb;
+    }
+
+    nav a button::before {
+      content: '';
+      position: absolute;
+      width: 100%;
+      height: 2px;
+      bottom: 0;
+      left: 0;
+      background-color: #00c6fb;
+      visibility: hidden;
+      transform: scaleX(0);
+      transition: all 0.3s ease-in-out;
+    }
+
+    nav a:hover button::before {
+      visibility: visible;
+      transform: scaleX(1);
+    }
+
+    /* Profile dropdown styles */
+    .profile {
+      position: relative;
+      cursor: pointer;
+    }
+
+    .profile img {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+    }
+
+    .dropdown {
+      position: absolute;
+      right: 0;
+      top: 55px;
+      background: transparent; /* Fully transparent header */
+      display: none;
+      min-width: 160px;
+      z-index: 999;
+      border-radius: 10px;
+      padding: 10px 0;
+    }
+
+    .dropdown a {
+      display: block;
+      margin: 10px;
+      color: #ffffff;
+      text-align: center;
+      text-decoration: none;
+      font-weight: bold;
+      border-radius: 25px;
+      padding: 10px 20px;
+      transition: background 0.3s, color 0.3s;
+      position: relative;
+    }
+
+    .dropdown a:hover {
+      background: rgba(255, 255, 255, 0.2);
+      color: #00c6fb;
+    }
+
+    .dropdown a::before {
+      content: '';
+      position: absolute;
+      width: 100%;
+      height: 2px;
+      bottom: 0;
+      left: 0;
+      background-color: #00c6fb;
+      visibility: hidden;
+      transform: scaleX(0);
+      transition: all 0.3s ease-in-out;
+    }
+
+    .dropdown a:hover::before {
+      visibility: visible;
+      transform: scaleX(1);
+    }
+
+    @media (max-width: 768px) {
+      nav {
+        flex-direction: column;
+        align-items: center;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <!-- Logo -->
+    <div class="logo-container">
+      <img src="images/logo.png" alt="Shop Logo">
+      <div class="shop-name">SKM</div>
+    </div>
+
+    <!-- Navigation -->
+    <div class="nav-container">
+      <nav>
+        <a href="index.html"><button>Home</button></a>
+        <a href="about.html"><button>About</button></a>
+        <a href="product.html"><button>Products</button></a>
+        <a href="cart.html"><button>Cart</button></a>
+        <a href="login.html"><button>Login</button></a>
+        <a href="signin.html"><button>Sign In</button></a>
+      </nav>
+    </div>
+
+    <!-- Profile Dropdown -->
+    <div class="profile" onclick="toggleDropdown()">
+      <img src="images/profile.jpg" alt="User">
+      <div class="dropdown" id="dropdownMenu">
+        <a href="profile.html">Profile</a>
+        <a href="logout.php">Logout</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Optional JS -->
+  <script>
+    function toggleDropdown() {
+      const dropdown = document.getElementById("dropdownMenu");
+      dropdown.style.display = dropdown.style.display === "block" ? "none" : "block";
+    }
+
+    window.onclick = function(event) {
+      if (!event.target.closest('.profile')) {
+        document.getElementById("dropdownMenu").style.display = "none";
+      }
+    };
+  </script>
+</body>
+</html>

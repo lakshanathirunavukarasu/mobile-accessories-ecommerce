@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>SKM | Payment</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background: url('images/payment.gif') no-repeat center center fixed;
+      background-size: cover;
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 20px;
+      
+      color: white;
+    }
+
+    .left-header {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .left-header img {
+      width: 70px;
+      margin-bottom: 5px;
+    }
+
+    .left-header span {
+      color: white;
+      font-weight: bold;
+      font-size: 16px;
+      text-align: center;
+      margin-bottom: 10px;
+    }
+
+    .left-header button {
+      background-color: transparent;
+      color: white;
+      border: 2px solid white;
+      padding: 6px 16px;
+      font-weight: bold;
+      border-radius: 25px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      backdrop-filter: blur(4px);
+    }
+
+    .left-header button:hover {
+      background: rgba(255, 255, 255, 0.2);
+      color: #1d0cd8;
+      border-color: #361cdb;
+      box-shadow: 0 0 10px #1215c1;
+    }
+
+    .right-header button {
+      background-color: rgb(31, 122, 218);
+      color: black;
+      border: none;
+      padding: 8px 16px;
+      font-weight: bold;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    .right-header button:hover {
+      background: #4606dc;
+    }
+
+    #paymentSection {
+      background: rgba(255, 255, 255, 0.95);
+      padding: 25px;
+      border-radius: 10px;
+      max-width: 500px;
+      margin: 30px auto;
+      box-shadow: 0 0 12px rgba(0, 0, 0, 0.4);
+    }
+
+    h2 {
+      text-align: center;
+      color: #333;
+    }
+
+    input, textarea {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+
+    button[type="button"] {
+      margin-top: 20px;
+      padding: 12px 20px;
+      background: #6200ea;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      width: 100%;
+      font-size: 16px;
+    }
+
+    button[type="button"]:hover {
+      background: #3700b3;
+    }
+
+    .qr {
+      margin-top: 20px;
+      text-align: center;
+    }
+
+    .qr img {
+      width: 200px;
+      height: 200px;
+    }
+
+    #successMessage {
+      display: none;
+      text-align: center;
+      padding: 40px;
+      background: rgba(163, 61, 218, 0.95);
+      border-radius: 10px;
+      max-width: 600px;
+      margin: 50px auto;
+      box-shadow: 0 0 15px rgba(51, 14, 199, 0.4);
+    }
+
+    #amountToPay {
+      font-size: 20px;
+      color: #000;
+      text-align: center;
+      margin-bottom: 15px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="left-header">
+      <img src="images/logo.png" alt="Logo">
+      <span>SKM</span>
+      <button onclick="window.location.href='index.html'">⬅️ Back to Home</button>
+    </div>
+    <div class="right-header">
+      <button onclick="window.location.href='cart.html'">🛒 cart</button>
+    </div>
+  </header>
+
+  <div id="paymentSection">
+    <h2>Complete Your Payment</h2>
+    <p id="productName">Product: N/A</p>
+    <p id="amountToPay">Total Amount: ₹0</p>
+
+    <div class="qr">
+      <img id="gpayQR" src="images/gpay.jpg" alt="GPay QR Code">
+    </div>
+
+    <form id="addressForm">
+      <label for="name">Full Name:</label>
+      <input type="text" id="name" required>
+
+      <label for="address">Delivery Address:</label>
+      <textarea id="address" rows="4" required></textarea>
+
+      <label for="phone">Phone Number:</label>
+      <input type="text" id="phone" required>
+
+      <button type="button" onclick="completePayment()">Pay Now</button>
+    </form>
+  </div>
+
+  <div id="successMessage">
+    <h2>✅ Payment Successful!</h2>
+    <p>Thank you for your purchase. Your order will be delivered soon.</p>
+  </div>
+
+  <script>
+    
+    const productData = localStorage.getItem("buyNow");
+    const total = localStorage.getItem("totalPrice");
+
+    if (productData) {
+      const product = JSON.parse(productData)[0];
+      document.getElementById("productName").innerText = "Product: " + product.name;
+      document.getElementById("amountToPay").innerText = "Total Amount: ₹" + total;
+    }
+
+    function completePayment() {
+      document.getElementById("paymentSection").style.display = "none";
+      document.getElementById("successMessage").style.display = "block";
+
+      // Further logic like saving the order to the database
+    }
+  </script>
+
+</body>
+</html>             

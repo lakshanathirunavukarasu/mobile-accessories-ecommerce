@@ -1,0 +1,228 @@
+/* Reset Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Background */
+body {
+    font-family: Arial, sans-serif;
+    background: url("images/color.gif") no-repeat center center fixed;
+    background-size: cover;
+}
+
+/* Header Styling */
+header {
+    background: rgba(0, 0, 0, 0.8);
+    padding: 10px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+/* Logo & Shop Name */
+.logo-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.logo-container img {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+}
+
+.shop-name {
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+    margin-top: 5px;
+}
+
+/* Navigation Menu */
+.nav-container {
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+}
+
+nav {
+    display: flex;
+    gap: 10px;
+}
+
+nav a {
+    text-decoration: none;
+}
+
+/* 3D Navigation Buttons */
+nav button {
+    background: linear-gradient(145deg, #005bea, #00c6fb); /* Blue & White Gradient */
+    color: white;
+    border: none;
+    padding: 12px 18px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 8px;
+    
+    /* 3D Effect */
+    box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.3), 
+                -2px -2px 5px rgba(255, 255, 255, 0.5);
+    
+    /* Transition Effect */
+    transition: all 0.3s ease-in-out;
+    transform: translateY(-2px);
+}
+
+/* Hover Effect - Moving Up */
+nav button:hover {
+    background: linear-gradient(145deg, #00c6fb, #005bea); /* Reverse Gradient */
+    box-shadow: 6px 6px 12px rgba(0, 0, 0, 0.4), 
+                -3px -3px 6px rgba(255, 255, 255, 0.6);
+    transform: translateY(-5px); /* Moves Up */
+}
+
+/* Click Effect - Slight Press */
+nav button:active {
+    transform: translateY(1px);
+    box-shadow: 3px 3px 6px rgba(0, 0, 0, 0.4);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    nav {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .logo-container img {
+        width: 50px;
+        height: 50px;
+    }
+}
+
+/* Product Grid */
+.products {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 40px; /* Spacing between images */
+    padding: 20px;
+}
+
+/* Product Card */
+.product {
+    width: 300px;
+    background: rgba(255, 255, 255, 0.9);
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    text-align: center;
+}
+
+/* Product Image */
+.product img {
+    width: 100%;
+    height: 350px;
+    border-radius: 10px;
+    object-fit: cover;
+    transition: transform 0.3s ease-in-out;
+}
+
+/* Hover Effect - Zoom In */
+.product:hover img {
+    transform: scale(1.05);
+}
+
+/* Product Details */
+.product-details {
+    padding: 10px;
+}
+
+.product h2 {
+    font-size: 20px;
+    margin: 10px 0 5px;
+    color: black;
+}
+
+.price {
+    font-size: 18px;
+    font-weight: bold;
+    color: #d81717;
+}
+
+/* Quantity Selector */
+.quantity {
+    width: 50px;
+    text-align: center;
+    margin-top: 5px;
+}
+
+/* Buttons Container */
+.buttons {
+    margin-top: 10px;
+    display: flex;
+    justify-content: center;
+    gap: 5px;
+}
+
+/* Buttons Container */
+.buttons {
+    margin-top: 10px;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+/* 3D Button Effect */
+.buttons button {
+    padding: 12px 20px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    text-transform: uppercase;
+    color: white;
+    background: linear-gradient(145deg, red 30%, black 70%);
+    
+    /* 3D Raised Effect */
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5), 
+                -3px -3px 8px rgba(255, 255, 255, 0.1);
+    
+    /* Smooth transition */
+    transition: all 0.2s ease-in-out;
+    transform: translateY(-3px);
+}
+
+/* Hover Effect (Smoother Depth) */
+.buttons button:hover {
+    background: linear-gradient(145deg, black 30%, red 70%);
+    box-shadow: 3px 3px 8px rgba(0, 0, 0, 0.7), 
+                -2px -2px 6px rgba(255, 255, 255, 0.1);
+    transform: translateY(-5px);
+}
+
+/* Click Effect (Button Pressed) */
+.buttons button:active {
+    transform: translateY(1px);
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.6);
+}
+.gradient-text {
+    background: linear-gradient(135deg, #ff4ecd, #00d4ff); /* pink to blue */
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    color: transparent;
+}
+
+.about-text p {
+    margin-bottom: 20px;
+    font-size: 18px;
+    line-height: 1.8;
+    color: #fff;
+}
